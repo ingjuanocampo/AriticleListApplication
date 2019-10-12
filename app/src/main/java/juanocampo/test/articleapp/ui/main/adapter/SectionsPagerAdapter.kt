@@ -1,10 +1,11 @@
-package juanocampo.test.articleapp.ui.main
+package juanocampo.test.articleapp.ui.main.adapter
 
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import juanocampo.test.articleapp.R
+import juanocampo.test.articleapp.ui.main.fragment.ListArticleFragment
 
 private val TAB_TITLES = arrayOf(
     R.string.tab_text_1,

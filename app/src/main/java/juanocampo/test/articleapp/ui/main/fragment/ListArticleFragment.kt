@@ -1,4 +1,4 @@
-package juanocampo.test.articleapp.ui.main
+package juanocampo.test.articleapp.ui.main.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import juanocampo.test.articleapp.R
+import juanocampo.test.presentation.viewmodel.PageViewModel
 
 /**
  * A placeholder fragment containing a simple view.

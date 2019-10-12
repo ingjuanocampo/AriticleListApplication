@@ -1,4 +1,4 @@
-package juanocampo.test.articleapp.ui.main
+package juanocampo.test.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

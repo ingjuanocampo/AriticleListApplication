@@ -1,7 +1,21 @@
 apply plugin: 'java-library'
-
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-kapt'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    def daggerVersion = '2.24'
+    def rxJavaVersion = '2.2.3'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    //RX
+    implementation "io.reactivex.rxjava2:rxjava:${rxJavaVersion}"
+
+    // Dagger 2
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
 }
 
 sourceCompatibility = "7"
