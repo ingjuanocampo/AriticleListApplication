@@ -10,7 +10,6 @@ import juanocampo.test.presentation.model.imp.MainModuleImp
 @Module
 class PresentationModelModule {
 
-
     @Provides
     fun providesMainModel(synServerInfoUseCase: SynServerInfoUseCase, clearAllUseCase: ClearAllUseCase): MainModel
             = MainModuleImp(synServerInfoUseCase, clearAllUseCase)

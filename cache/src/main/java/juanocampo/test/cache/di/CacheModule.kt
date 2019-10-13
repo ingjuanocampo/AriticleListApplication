@@ -6,11 +6,11 @@ import dagger.Reusable
 import juanocampo.test.cache.LocalDataSourceImp
 import juanocampo.test.cache.MapperImp
 import juanocampo.test.cache.database.RoomDB
+import juanocampo.test.cache.database.di.DatabaseModule
 import juanocampo.test.cache.mapper.Mapper
-import juanocampo.test.data.di.DataModule
 import juanocampo.test.data.source.LocalDataSource
 
-@Module(includes = [DataModule::class])
+@Module(includes = [DatabaseModule::class])
 class CacheModule {
 
     @Provides

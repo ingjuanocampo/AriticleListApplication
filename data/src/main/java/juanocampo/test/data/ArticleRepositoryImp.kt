@@ -40,8 +40,10 @@ class ArticleRepositoryImp(
                 return@map list.map { post -> mapper.map(post) }
             }
 
-    override fun getUserById(userId: String): Observable<User> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getUserById(userId: String): User? {
+        val userRepo = remoteDataSource.getUserById(userId)
+        return if (userRepo != null) mapper.map(userRepo) else null
+
     }
 
     override fun getFavorites(): Observable<List<Post>> =

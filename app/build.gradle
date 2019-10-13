@@ -29,10 +29,23 @@ dependencies {
     implementation project(':cache')
     implementation project(':remote')
 
+
     def daggerVersion = '2.24'
     def rxJavaVersion = '2.2.3'
     def rxAndroidVersion = '2.1.0'
     def lifecycle_version = "2.1.0"
+    def room_version = "2.2.0"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
+    kapt "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
+
+    // Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:$room_version"
+
+    // RxJava support for Room
+    implementation "androidx.room:room-rxjava2:$room_version"
+
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
