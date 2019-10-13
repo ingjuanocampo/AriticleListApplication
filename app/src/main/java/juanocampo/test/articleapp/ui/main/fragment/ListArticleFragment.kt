@@ -2,9 +2,7 @@ package juanocampo.test.articleapp.ui.main.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import dagger.android.support.AndroidSupportInjection
 import juanocampo.test.articleapp.R
@@ -27,7 +25,13 @@ class ListArticleFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
+
         return inflater.inflate(R.layout.fragment_main, container, false)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     companion object {

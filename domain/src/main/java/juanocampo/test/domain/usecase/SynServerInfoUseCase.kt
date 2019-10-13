@@ -8,12 +8,8 @@ import juanocampo.test.domain.status.ProcessSuccess
 class SynServerInfoUseCase(private val repository: ArticlesRepository) {
 
     operator fun invoke(): ProcessStatus {
-        return try {
-            val sync = repository.sync()
-            val updateProcess = repository.markAsReadInitialData()
-            if (sync && updateProcess) ProcessSuccess else ProcessError
-        } catch (e: Exception) {
-            ProcessError
-        }
+        val sync = repository.sync()
+        val updateProcess = repository.markAsReadInitialData()
+        return if (sync && updateProcess) ProcessSuccess else ProcessError
     }
 }

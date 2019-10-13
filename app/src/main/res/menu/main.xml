@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:appcompat="http://schemas.android.com/apk/res-auto"
+    tools:context=".UrPinV2.modules.navigation_main.ActivityTabs">
+
+    <item
+        android:id="@+id/reloads"
+        android:icon="@drawable/ic_refresh_24px"
+        android:visible="true"
+        android:title="Reloads"
+        appcompat:showAsAction="always|collapseActionView"/>
+</menu>
