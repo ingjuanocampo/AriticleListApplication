@@ -12,7 +12,6 @@ import juanocampo.test.domain.di.DomainModule
 import juanocampo.test.remote.di.RemoteModule
 import javax.inject.Singleton
 
-
 @Singleton
 @Component(modules = [
     AndroidInjectionModule::class,
