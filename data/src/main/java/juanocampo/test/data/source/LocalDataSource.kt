@@ -9,15 +9,15 @@ interface LocalDataSource {
 
     fun insertItems(items: List<PostRepo>)
 
-    fun deleteAll()
+    fun deleteAll(): Boolean
 
-    fun delete(post: PostRepo)
+    fun deleteById(string: String): Boolean
 
-    fun setAsReadById(id: String)
+    fun setAsReadById(id: String): Boolean
 
     fun getAllFavorites(): Observable<List<PostRepo>>
 
-    fun getAll(): Observable<List<PostRepo>>
+    fun getPostAll(): Observable<List<PostRepo>>
 
-    fun markAsReadInitialData()
+    fun markAsReadInitialData(): Boolean
 }

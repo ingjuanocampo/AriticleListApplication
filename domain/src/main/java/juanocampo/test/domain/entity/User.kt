@@ -1,25 +1,11 @@
 package juanocampo.test.domain.entity
 
-data class User(
-    var id: String,
-    var name: String,
-    var username: String,
-    var email: String,
-    var address: Address,
-    var phone: String,
-    var website: String,
-    var company: Company
-)
-
-data class Address(
-    var street: String,
-    var suite: String,
-    var city: String,
-    var zipcode: String
-)
-
-data class Company(
-    var name: String,
-    var catchPhrase: String,
-    var bs: String
-)
+class User(
+    val id: String,
+    val name: String,
+    val username: String,
+    val email: String,
+    val address: String,
+    val phone: String,
+    val website: String,
+    val company: String)

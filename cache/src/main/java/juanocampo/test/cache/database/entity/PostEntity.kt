@@ -1,6 +1,11 @@
-package juanocampo.test.data.entity
+package juanocampo.test.cache.database.entity
 
-class PostRepo(
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
+data class PostEntity(
+    @PrimaryKey
     var postId: String,
     var userId: String,
     var title: String,
