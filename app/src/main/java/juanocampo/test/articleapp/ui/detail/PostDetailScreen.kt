@@ -3,6 +3,7 @@ package juanocampo.test.articleapp.ui.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -45,10 +46,12 @@ class PostDetailScreen: AppCompatActivity() {
 
         viewModel.getPostId(postId)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        title = getString(R.string.detail_title)
+
         loader.visibility = View.VISIBLE
         viewModel.postLiveData.observe(this, Observer {
             viewModel.getUserId(it.userId)
-            title = it.title
             postName.text = it.title
             description.text = it.body
             favorite.setImageResource(if (it.isFavorite) R.drawable.ic_favorite_24px else R.drawable.ic_favorite_border_24px)
@@ -76,4 +79,10 @@ class PostDetailScreen: AppCompatActivity() {
             }
         }
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        onBackPressed()
+        return true
+    }
+
 }
