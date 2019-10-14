@@ -20,7 +20,7 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
     FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
-        return ListArticleFragment.newInstance(position + 1)
+        return ListArticleFragment.newInstance(position + 1 == 2)
     }
 
     override fun getPageTitle(position: Int): CharSequence? {

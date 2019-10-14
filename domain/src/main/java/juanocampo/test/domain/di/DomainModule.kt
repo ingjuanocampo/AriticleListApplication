@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import juanocampo.test.domain.repository.ArticlesRepository
 import juanocampo.test.domain.usecase.ClearAllUseCase
+import juanocampo.test.domain.usecase.GetListPostUseCase
 import juanocampo.test.domain.usecase.RefreshServerInformationUseCase
 import juanocampo.test.domain.usecase.SynServerInfoUseCase
 
@@ -20,5 +21,9 @@ class DomainModule {
 
     @Provides
     fun providesRefreshUseCase(synServerInfoUseCase: SynServerInfoUseCase, clearAllUseCase: ClearAllUseCase) = RefreshServerInformationUseCase(synServerInfoUseCase, clearAllUseCase)
+
+
+    @Provides
+    fun providesGetListPostUseCase(articlesRepository: ArticlesRepository) = GetListPostUseCase(articlesRepository)
 
 }
