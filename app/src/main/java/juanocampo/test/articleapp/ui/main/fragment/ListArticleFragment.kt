@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.AndroidSupportInjection
 import juanocampo.test.articleapp.R
+import juanocampo.test.articleapp.ui.detail.PostDetailScreen
 import juanocampo.test.articleapp.ui.main.adapter.PostAdapter
 import juanocampo.test.presentation.entity.PostViewType
 import juanocampo.test.presentation.viewmodel.ArticleListViewModel
@@ -66,7 +67,7 @@ class ListArticleFragment : Fragment() {
     }
 
     private fun onSelected(postViewType: PostViewType) {
-
+        startActivityForResult(PostDetailScreen.Factory.newIntent(postViewType.postId, context!!), 0)
     }
 
     private fun onFavorite(postViewType: PostViewType) {

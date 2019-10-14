@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -22,7 +21,6 @@ import juanocampo.test.articleapp.ui.main.adapter.SectionsPagerAdapter
 import juanocampo.test.presentation.viewmodel.MainViewModel
 import juanocampo.test.presentation.viewmodel.factory.MainViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_main.*
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), HasAndroidInjector {

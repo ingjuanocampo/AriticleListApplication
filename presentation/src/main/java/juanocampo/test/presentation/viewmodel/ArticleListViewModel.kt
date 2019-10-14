@@ -56,7 +56,8 @@ class ArticleListViewModel(private val model: ArticleListModel,
         return favoriteStatus
     }
 
-
-
-
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.clear()
+    }
 }

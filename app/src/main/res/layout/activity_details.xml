@@ -10,24 +10,18 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <View
-            android:id="@+id/read_doc"
-            android:layout_centerVertical="true"
-            android:background="@drawable/circle_shape"
-            android:layout_width="5dp"
-            android:layout_height="5dp"/>
 
         <ImageView
-            android:id="@+id/star_favorite"
+            android:id="@+id/favorite"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/star_off" />
+            android:src="@drawable/ic_favorite_border_24px" />
 
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/postName"
         tools:text="Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

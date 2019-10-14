@@ -23,4 +23,10 @@ class DomainModule {
     @Provides
     fun providesFavoriteUseCase(articlesRepository: ArticlesRepository) = FavoriteUseCase(articlesRepository)
 
+    @Provides
+    fun providesGetUserByidUseCase(articlesRepository: ArticlesRepository) = GetUserByIdUseCase(articlesRepository)
+
+    @Provides
+    fun providesGetPostByIduUseCase(articlesRepository: ArticlesRepository) = GetPostByIdUseCase(articlesRepository)
+
 }

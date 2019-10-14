@@ -1,7 +1,6 @@
 package juanocampo.test.domain.repository
 
 import io.reactivex.Observable
-import io.reactivex.Single
 import juanocampo.test.domain.entity.Post
 import juanocampo.test.domain.entity.User
 
@@ -19,6 +18,8 @@ interface ArticlesRepository {
     fun getPostAll(): Observable<List<Post>>
 
     fun getUserById(userId: String): User?
+
+    fun getPostById(id: String): Post?
 
     fun getFavorites(): Observable<List<Post>>
 

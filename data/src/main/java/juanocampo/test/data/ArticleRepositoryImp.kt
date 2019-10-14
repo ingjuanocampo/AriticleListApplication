@@ -14,6 +14,11 @@ class ArticleRepositoryImp(
     private val mapper: Mapper
 ) : ArticlesRepository {
 
+    override fun getPostById(id: String): Post? {
+        val post = localDataSource.getPostById(id)
+        return if (post != null) mapper.map(post) else null
+    }
+
     override fun sync(): Boolean {
         return if (!localDataSource.isSync()) {
             val responseList = remoteDataSource.fetchPost()

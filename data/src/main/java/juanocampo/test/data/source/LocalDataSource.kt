@@ -2,6 +2,7 @@ package juanocampo.test.data.source
 
 import io.reactivex.Observable
 import juanocampo.test.data.entity.PostRepo
+import juanocampo.test.domain.entity.Post
 
 interface LocalDataSource {
 
@@ -22,4 +23,6 @@ interface LocalDataSource {
     fun markAsReadInitialData(): Boolean
 
     fun setAsFavoriteById(id: String, favorite: Boolean): Boolean
+
+    fun getPostById(id: String): PostRepo?
 }
