@@ -21,6 +21,6 @@ class PresentationModelModule {
     fun providesArticleListModel(getListPostUseCase: GetListPostUseCase, favoriteUseCase: FavoriteUseCase): ArticleListModel = ArticleListModelImp(getListPostUseCase, favoriteUseCase)
 
     @Provides
-    fun providesArticleDetailModel(getPostByIdUseCase: GetPostByIdUseCase, getUserByIdUseCase: GetUserByIdUseCase): ArticleDetailModel
-            = ArticleDetailModelImp(getPostByIdUseCase, getUserByIdUseCase)
+    fun providesArticleDetailModel(getPostByIdUseCase: GetPostByIdUseCase, getUserByIdUseCase: GetUserByIdUseCase, favoriteUseCase: FavoriteUseCase): ArticleDetailModel
+            = ArticleDetailModelImp(getPostByIdUseCase, getUserByIdUseCase, favoriteUseCase)
 }

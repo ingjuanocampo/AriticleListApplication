@@ -1,5 +1,6 @@
 package juanocampo.test.presentation.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -42,6 +43,14 @@ class ArticleDetailViewModel(private val model: ArticleDetailModel): ViewModel()
                         errorLive.value = true
                     }
                 }, { errorLive.value = true }))
+    }
+
+    fun setAsFavorite(id: String, favorite: Boolean) {
+        val favoriteDisposable = model.setAsFavoriteById(id, favorite)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+            }, { errorLive.value = true })
+        compositeDisposable.add(favoriteDisposable)
     }
 
 }

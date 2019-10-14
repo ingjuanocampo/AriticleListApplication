@@ -1,8 +1,6 @@
 package juanocampo.test.articleapp.ui.main
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -69,10 +67,6 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
                 Toast.makeText(this, "Something when wrong", Toast.LENGTH_SHORT).show()
             }
         })
-    }
-
-    override fun onResume() {
-        super.onResume()
         syncServer()
     }
 
@@ -89,25 +83,6 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
 
     override fun androidInjector(): AndroidInjector<Any> {
         return fragmentDispatchingAndroidInjector
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            R.id.reloads -> {
-                syncServer()
-                return false
-            }
-            else -> {
-            }
-        }
-
-        return false
     }
 
 }

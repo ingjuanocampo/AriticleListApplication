@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import dagger.android.AndroidInjection
 import juanocampo.test.articleapp.R
 import juanocampo.test.articleapp.ui.detail.PostDetailScreen.Factory.POST_ID
+import juanocampo.test.domain.entity.Post
 import juanocampo.test.presentation.viewmodel.ArticleDetailViewModel
 import juanocampo.test.presentation.viewmodel.factory.ArticleDetailViewModelFactory
 import kotlinx.android.synthetic.main.activity_details.*
@@ -28,6 +29,7 @@ class PostDetailScreen: AppCompatActivity() {
         }
     }
 
+    private var post: Post? = null
     @Inject
     lateinit var factory: ArticleDetailViewModelFactory
     private lateinit var viewModel: ArticleDetailViewModel
@@ -50,6 +52,7 @@ class PostDetailScreen: AppCompatActivity() {
             postName.text = it.title
             description.text = it.body
             favorite.setImageResource(if (it.isFavorite) R.drawable.ic_favorite_24px else R.drawable.ic_favorite_border_24px)
+            post = it
         })
 
         viewModel.userLiveData.observe(this, Observer {
@@ -63,5 +66,14 @@ class PostDetailScreen: AppCompatActivity() {
         viewModel.errorLive.observe(this, Observer {
             Toast.makeText(applicationContext, "Something went wrong getting info", Toast.LENGTH_SHORT).show()
         })
+
+        favorite.setOnClickListener {
+            post?.apply {
+                post?.isFavorite = !this.isFavorite
+                viewModel.setAsFavorite(this.postId, isFavorite )
+                favorite.setImageResource(if (isFavorite) R.drawable.ic_favorite_24px else R.drawable.ic_favorite_border_24px)
+
+            }
+        }
     }
 }
