@@ -29,4 +29,7 @@ class DomainModule {
     @Provides
     fun providesGetPostByIduUseCase(articlesRepository: ArticlesRepository) = GetPostByIdUseCase(articlesRepository)
 
+    @Provides
+    fun providesDeleteByIdUseCase(articlesRepository: ArticlesRepository) = DeleteByIdUseCase(articlesRepository)
+
 }

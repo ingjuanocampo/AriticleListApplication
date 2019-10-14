@@ -6,19 +6,22 @@ import io.reactivex.schedulers.Schedulers
 import juanocampo.test.domain.entity.Post
 import juanocampo.test.domain.status.ProcessError
 import juanocampo.test.domain.status.ProcessStatus
+import juanocampo.test.domain.usecase.DeleteByIdUseCase
 import juanocampo.test.domain.usecase.FavoriteUseCase
 import juanocampo.test.domain.usecase.GetListPostUseCase
 import juanocampo.test.presentation.model.ArticleListModel
 import java.lang.IllegalStateException
 
-class ArticleListModelImp(private val getListPostUseCase: GetListPostUseCase, private val favoriteUseCase: FavoriteUseCase): ArticleListModel {
+class ArticleListModelImp(private val getListPostUseCase: GetListPostUseCase, private val favoriteUseCase: FavoriteUseCase, private val deleteByIdUseCase: DeleteByIdUseCase): ArticleListModel {
 
     override fun observePostList(isFavorite: Boolean): Observable<List<Post>> {
         return getListPostUseCase(isFavorite).subscribeOn(Schedulers.io())
     }
 
     override fun deleteById(id: String): Completable {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return subscribeCompletableIO{
+            deleteByIdUseCase(id)
+        }
     }
 
     override fun setAsFavoriteById(id: String, favorite: Boolean): Completable {

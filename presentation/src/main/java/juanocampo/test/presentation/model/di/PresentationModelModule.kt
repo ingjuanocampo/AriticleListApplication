@@ -18,7 +18,8 @@ class PresentationModelModule {
             = MainModuleImp(synServerInfoUseCase, clearAllUseCase, refreshServerInformationUseCase)
 
     @Provides
-    fun providesArticleListModel(getListPostUseCase: GetListPostUseCase, favoriteUseCase: FavoriteUseCase): ArticleListModel = ArticleListModelImp(getListPostUseCase, favoriteUseCase)
+    fun providesArticleListModel(getListPostUseCase: GetListPostUseCase, favoriteUseCase: FavoriteUseCase, deleteByIdUseCase: DeleteByIdUseCase):
+            ArticleListModel = ArticleListModelImp(getListPostUseCase, favoriteUseCase, deleteByIdUseCase)
 
     @Provides
     fun providesArticleDetailModel(getPostByIdUseCase: GetPostByIdUseCase, getUserByIdUseCase: GetUserByIdUseCase, favoriteUseCase: FavoriteUseCase): ArticleDetailModel
