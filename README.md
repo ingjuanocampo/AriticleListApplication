@@ -32,18 +32,18 @@ Patterns:
 
 ## Modules
 
-To fullfill the clean architecture, and keep all the layers un-couple there is a module per layer. Please review the description of every module. 
+To fulfill the clean architecture, and keep all the layers un-couple there is a module per layer. Please review the description of every module.
 
 #### App 
 App module integrates all modules, it is the main Android Project and it only contains all files related to Activities, Fragments, and Adapters. It also is in charge to resolve the dependencies of the project by creating the Main Dagger component. 
 Dependecies: Presentation, Domain, Data, Cache, Remote 
 
 #### Presentation 
-Presentation is an Android Module, which is in charge of coordinate the view and model. Using an MVVM presentation pattern it holds the contracts with the model and exposes Live data to be consumed in the UI.
-Dependencies: Domain 
+The presentation is an Android Module, which is in charge of coordinate the view and model. Using an MVVM presentation pattern it holds the contracts with the model and exposes Live data to be consumed in the UI.
+Dependencies: Domain
 
 #### Domain 
-Domain is a Kotlin Module and it is designed to hold off the CORE-features of the app. This is only a logic module and should always be a Kotlin Module. This module has no dependency on other modules, it is 100% uncoupled. Also, Domain creates contracts (Repository contracts) that should be implemented in the Data layer to full fill the requirement of the features. 
+The Domain is a Kotlin Module and it is designed to hold off the CORE-features of the app. This is only a logic module and should always be a Kotlin Module. This module has no dependency on other modules, it is 100% uncoupled. Also, Domain creates contracts (Repository contracts) that should be implemented in the Data layer to full fill the requirement of the features. 
 Dependency: Nothing 
 
 #### Data 
@@ -51,17 +51,17 @@ Data is Kotlin Module that implements the contracts specified in the domain laye
 Dependency: Domain 
 
 #### Chache 
-Cache is an Android Module that connects with local datasources like Databases, Sharepreferences etc. In this case we have a Room Database intance incharge of store the post information 
+Cache is an Android Module that connects with local data sources like Databases, Sharepreferences, etc. In this case, we have a Room Database instance in charge of the store the post information 
 Dependency: Data
 
 #### Remote
-Android Module that integrates the JsonPlaceHolder, using Retrofit it fetch all the remote required information. 
+Android Module that integrates the JsonPlaceHolder, using Retrofit it fetches all the remote required information. 
 Dependency: Data
 
 ## Unit test 
 
-With clean architecture approach is very easy to test all the layers. Since most of the classes relies in contracts instead of implementation, it is easy to mock and interact with every class. 
-The most important part of the app to be tested should be always be Domain, since in Domain layer are all the core features and BRs. (Of course all the code should be Tested) 
+With a clean architecture, the code is very easy to test in all the layers. Since most of the classes rely on contracts instead of implementation, it is easy to mock and interact with every class. 
+The most important part of the app to be tested should always be Domain, since in Domain layer are all the core features and BRs. (Of course, all the code should be Tested) 
 
 For this showcase the Domain has a 100% test coverage, please see the following image: 
 
