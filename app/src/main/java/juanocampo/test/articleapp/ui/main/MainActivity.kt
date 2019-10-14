@@ -4,14 +4,15 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.tabs.TabLayout
-import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayout
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -20,6 +21,7 @@ import juanocampo.test.articleapp.R
 import juanocampo.test.articleapp.ui.main.adapter.SectionsPagerAdapter
 import juanocampo.test.presentation.viewmodel.MainViewModel
 import juanocampo.test.presentation.viewmodel.factory.MainViewModelFactory
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main.*
 import javax.inject.Inject
 
@@ -45,31 +47,46 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         val tabs: TabLayout = findViewById(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
         val fab: FloatingActionButton = findViewById(R.id.fab)
+        val refresh: FloatingActionButton = findViewById(R.id.refresh)
 
         fab.setOnClickListener { view ->
-            viewModel.deleteAll().observe((this), Observer{
-                if (!it) {
-                    Snackbar.make(view, "Something when wrong", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show()                }
-            })
-
+            viewModel.deleteAll()
         }
 
+        refresh.setOnClickListener { view ->
+            refresh()
+        }
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
 
+        viewModel.deleteStatus.observe((this), Observer {
+            if (!it) {
+                Snackbar.make(fab, "Something when wrong", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
+            }
+        })
 
-        syncServer()
-
-
-    }
-
-    private fun syncServer() {
-        viewModel.syncServerInformation().observe((this), Observer {
+        viewModel.sycStatus.observe((this), Observer {
             progressBar.visibility = View.GONE
             if (!it) {
                 Toast.makeText(this, "Something when wrong", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        syncServer()
+    }
+
+    private fun syncServer() {
+        progressBar.visibility = View.VISIBLE
+        viewModel.syncServerInformation()
+    }
+
+    private fun refresh() {
+        progressBar.visibility = View.VISIBLE
+        viewModel.refreshServerInformation()
+
     }
 
     override fun androidInjector(): AndroidInjector<Any> {
@@ -85,7 +102,6 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.reloads -> {
-                progressBar.visibility = View.VISIBLE
                 syncServer()
                 return false
             }

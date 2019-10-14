@@ -23,7 +23,7 @@ class LocalDataSourceImp(private val db: RoomDB, private val mapper: Mapper) : L
     }
 
     override fun deleteAll(): Boolean {
-        return db.postDao().deleteAll() > 1
+        return db.postDao().deleteAll() >= 0
     }
 
     override fun deleteById(id: String): Boolean {

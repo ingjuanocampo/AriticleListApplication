@@ -11,10 +11,10 @@ class MainViewModel(private val model: MainModel) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
-    private val sycStatus = MutableLiveData<Boolean>()
-    private val deleteStatus = MutableLiveData<Boolean>()
+    val sycStatus = MutableLiveData<Boolean>()
+    val deleteStatus = MutableLiveData<Boolean>()
 
-    fun syncServerInformation(): LiveData<Boolean> {
+    fun syncServerInformation() {
         compositeDisposable.add(
             model.syncServerInfo()
                 .observeOn(AndroidSchedulers.mainThread())
@@ -22,18 +22,25 @@ class MainViewModel(private val model: MainModel) : ViewModel() {
                     sycStatus.value = true
                 }, { sycStatus.value = false })
         )
-        return sycStatus
     }
 
-    fun deleteAll(): LiveData<Boolean> {
+    fun refreshServerInformation() {
+        compositeDisposable.add(
+            model.refresh()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    sycStatus.value = true
+                }, { sycStatus.value = false })
+        )
+    }
+
+    fun deleteAll() {
         val deleteDisposable = model.deleteAll()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 deleteStatus.value = true
             }, { deleteStatus.value = false })
         compositeDisposable.add(deleteDisposable)
-
-        return deleteStatus
     }
 
     override fun onCleared() {

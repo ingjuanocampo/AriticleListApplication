@@ -66,7 +66,7 @@ class ListArticleFragment : Fragment() {
     }
 
     private fun onSelected(postViewType: PostViewType) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     private fun onFavorite(postViewType: PostViewType) {

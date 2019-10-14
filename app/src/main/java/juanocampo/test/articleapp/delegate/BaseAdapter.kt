@@ -26,9 +26,8 @@ open class BaseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     open fun addItems(updatedConversationMessages: List<RecyclerViewType>) {
         val diffResult = DiffUtil.calculateDiff(DelegateDiffCallback(items, updatedConversationMessages))
-
+        items.clear()
         if (updatedConversationMessages.isNullOrEmpty().not()) {
-            items.clear()
             items.addAll(updatedConversationMessages)
         }
         diffResult.dispatchUpdatesTo(this)
