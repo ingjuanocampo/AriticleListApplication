@@ -20,7 +20,7 @@ The choosen archicture is Clean Architecture which help us to keep the amount of
 
 
 Please take at look to the following design: 
-<img src="https://github.com/ingjuanocampo/AriticleListApplication/blob/master/ci_architecture_graph.png" 
+<img src="https://github.com/ingjuanocampo/AriticleListApplication/blob/master/ci_architecture_graph.svg" 
 alt="Drawing" style="width: 5px;"/>
 
 Patterns: 
