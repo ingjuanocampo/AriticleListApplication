@@ -29,7 +29,7 @@ class ListArticleFragment : Fragment() {
 
     lateinit var viewModel: ArticleListViewModel
 
-    private var adapter = PostAdapter({ onPostSelected(it) }, { onPostDelete(it) })
+    private var adapter = PostAdapter({ onFavorite(it) }, { onSelected(it) })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,12 +65,12 @@ class ListArticleFragment : Fragment() {
 
     }
 
-    private fun onPostDelete(postViewType: PostViewType) {
+    private fun onSelected(postViewType: PostViewType) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    private fun onPostSelected(postViewType: PostViewType) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    private fun onFavorite(postViewType: PostViewType) {
+        viewModel.setAsFavorite(postViewType.postId, !postViewType.isFavorite)
     }
 
 

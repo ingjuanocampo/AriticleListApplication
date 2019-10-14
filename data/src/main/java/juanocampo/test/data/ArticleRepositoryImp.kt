@@ -53,4 +53,6 @@ class ArticleRepositoryImp(
             }
 
     override fun markAsReadInitialData() = localDataSource.markAsReadInitialData()
+
+    override fun setAsFavoriteById(id: String, favorite: Boolean) = localDataSource.setAsFavoriteById(id, favorite)
 }

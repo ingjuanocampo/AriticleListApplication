@@ -46,8 +46,8 @@ class ArticleListViewModel(private val model: ArticleListModel,
         return deleteStatus
     }
 
-    fun setAAsFavorite(id: String): LiveData<Boolean> {
-        val favoriteDisposable = model.setAsFavoriteById(id)
+    fun setAsFavorite(id: String, favorite: Boolean): LiveData<Boolean> {
+        val favoriteDisposable = model.setAsFavoriteById(id, favorite)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 favoriteStatus.value = true

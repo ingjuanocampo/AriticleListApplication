@@ -2,10 +2,7 @@ package juanocampo.test.presentation.model.di
 
 import dagger.Module
 import dagger.Provides
-import juanocampo.test.domain.usecase.ClearAllUseCase
-import juanocampo.test.domain.usecase.GetListPostUseCase
-import juanocampo.test.domain.usecase.RefreshServerInformationUseCase
-import juanocampo.test.domain.usecase.SynServerInfoUseCase
+import juanocampo.test.domain.usecase.*
 import juanocampo.test.presentation.model.ArticleListModel
 import juanocampo.test.presentation.model.MainModel
 import juanocampo.test.presentation.model.imp.ArticleListModelImp
@@ -19,6 +16,6 @@ class PresentationModelModule {
             = MainModuleImp(synServerInfoUseCase, clearAllUseCase, refreshServerInformationUseCase)
 
     @Provides
-    fun providesArticleListModel(getListPostUseCase: GetListPostUseCase): ArticleListModel = ArticleListModelImp(getListPostUseCase)
+    fun providesArticleListModel(getListPostUseCase: GetListPostUseCase, favoriteUseCase: FavoriteUseCase): ArticleListModel = ArticleListModelImp(getListPostUseCase, favoriteUseCase)
 
 }

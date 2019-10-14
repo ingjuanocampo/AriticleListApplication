@@ -8,6 +8,12 @@ import juanocampo.test.data.source.LocalDataSource
 
 class LocalDataSourceImp(private val db: RoomDB, private val mapper: Mapper) : LocalDataSource {
 
+    override fun setAsFavoriteById(id: String, favorite: Boolean): Boolean {
+        val post = db.postDao().getPostById(id)
+        post.isFavorite = favorite
+        return db.postDao().update(post) > 0
+    }
+
     override fun isSync(): Boolean {
         return db.postDao().countItems() > 0
     }

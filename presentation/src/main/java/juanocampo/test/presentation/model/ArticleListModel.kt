@@ -10,6 +10,6 @@ interface ArticleListModel {
 
     fun deleteById(id: String): Completable
 
-    fun setAsFavoriteById(id: String): Completable
+    fun setAsFavoriteById(id: String, favorite: Boolean): Completable
 
 }

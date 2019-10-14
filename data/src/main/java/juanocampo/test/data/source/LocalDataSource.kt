@@ -20,4 +20,6 @@ interface LocalDataSource {
     fun getPostAll(): Observable<List<PostRepo>>
 
     fun markAsReadInitialData(): Boolean
+
+    fun setAsFavoriteById(id: String, favorite: Boolean): Boolean
 }

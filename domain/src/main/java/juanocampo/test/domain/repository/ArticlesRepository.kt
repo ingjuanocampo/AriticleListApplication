@@ -23,4 +23,6 @@ interface ArticlesRepository {
     fun getFavorites(): Observable<List<Post>>
 
     fun markAsReadInitialData(): Boolean
+
+    fun setAsFavoriteById(id: String, favorite: Boolean): Boolean
 }
