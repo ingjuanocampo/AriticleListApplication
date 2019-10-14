@@ -7,6 +7,7 @@ import juanocampo.test.domain.status.ProcessSuccess
 
 class ClearAllUseCase(private val repository: ArticlesRepository) {
 
+    
     operator fun invoke(): ProcessStatus {
         return try {
             val delete = repository.deleteAll()

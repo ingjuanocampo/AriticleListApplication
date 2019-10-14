@@ -8,9 +8,9 @@ import juanocampo.test.domain.status.PostSuccess
 class GetPostByIdUseCase(private val articlesRepository: ArticlesRepository) {
 
     operator fun invoke(id: String): PostGetStatus {
-        articlesRepository.setAsReadById(id)
+        val read = articlesRepository.setAsReadById(id)
         val post = articlesRepository.getPostById(id)
-        return if (post != null) {
+        return if (read && post != null) {
             PostSuccess(post)
         } else {
             PostError
