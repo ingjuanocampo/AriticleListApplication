@@ -1,6 +1,9 @@
 package juanocampo.test.articleapp.ui.main
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -43,15 +46,12 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         val tabs: TabLayout = findViewById(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
         val fab: FloatingActionButton = findViewById(R.id.fab)
-        val refresh: FloatingActionButton = findViewById(R.id.refresh)
 
+        setSupportActionBar(toolbar)
         fab.setOnClickListener { view ->
             viewModel.deleteAll()
         }
 
-        refresh.setOnClickListener { view ->
-            refresh()
-        }
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
 
         viewModel.deleteStatus.observe((this), Observer {
@@ -83,6 +83,17 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
 
     override fun androidInjector(): AndroidInjector<Any> {
         return fragmentDispatchingAndroidInjector
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        refresh()
+        return true
     }
 
 }
