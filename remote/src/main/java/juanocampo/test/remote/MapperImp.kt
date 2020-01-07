@@ -4,11 +4,22 @@ import juanocampo.test.data.entity.AddressRepo
 import juanocampo.test.data.entity.CompanyRepo
 import juanocampo.test.data.entity.PostRepo
 import juanocampo.test.data.entity.UserRepo
+import juanocampo.test.remote.api.entity.PhotoPojo
 import juanocampo.test.remote.api.entity.PostPojo
 import juanocampo.test.remote.api.entity.UserPojo
 import juanocampo.test.remote.mapper.Mapper
 
 class MapperImp : Mapper {
+
+    override fun map(photoPojos: List<PhotoPojo>): Map<String, String> {
+        val map = mutableMapOf<String, String>()
+        photoPojos.forEach {
+            if (it.albumId != null && it.url!= null) {
+                map[it.albumId] = it.url
+            }
+        }
+        return map
+    }
 
     override fun map(user: UserPojo): UserRepo {
         val address = AddressRepo(
@@ -31,7 +42,7 @@ class MapperImp : Mapper {
             website = user.website?: "")
     }
 
-    override fun map(post: PostPojo): PostRepo {
-        return PostRepo(postId = post.id?: "", body = post.body?: "", title = post.title?: "", userId = post.userId?: "")
+    override fun map(post: PostPojo, urlPhoto: String?): PostRepo {
+        return PostRepo(postId = post.id?: "", body = post.body?: "", title = post.title?: "", userId = post.userId?: "", urlPhoto = urlPhoto)
     }
 }

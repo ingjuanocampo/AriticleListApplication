@@ -19,6 +19,15 @@ class RemoteDataSourceImp(private val service: Service, private val mapper: Mapp
     }
 
     override fun fetchPost(): List<PostRepo>? {
-        return service.fecthListPost()?.map { mapper.map(it) }
+        val photosMap = fetchListPhotos()
+        return service.fecthListPost()?.map {
+            val photoUrl = it.id ?: ""
+            mapper.map(it, photosMap?.get(photoUrl)) }
     }
+
+    private fun fetchListPhotos(): Map<String, String>? {
+        val response = service.fecthListPhotos()
+        return if (response != null) mapper.map(response) else null
+    }
+
 }

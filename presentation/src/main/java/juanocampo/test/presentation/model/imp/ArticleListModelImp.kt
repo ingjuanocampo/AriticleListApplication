@@ -19,7 +19,7 @@ class ArticleListModelImp(private val getListPostUseCase: GetListPostUseCase, pr
     }
 
     override fun deleteById(id: String): Completable {
-        return subscribeCompletableIO{
+        return subscribeCompletableIO {
             deleteByIdUseCase(id)
         }
     }

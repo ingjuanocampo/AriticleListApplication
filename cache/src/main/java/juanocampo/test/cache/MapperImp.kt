@@ -6,10 +6,10 @@ import juanocampo.test.data.entity.PostRepo
 
 internal class MapperImp: Mapper {
     override fun map(post: PostRepo): PostEntity {
-        return PostEntity(post.postId, post.userId, post.title, post.body, post.isFavorite, post.isRead)
+        return PostEntity(post.postId, post.userId, post.title, post.body, post.isFavorite, post.isRead, post.urlPhoto ?: "")
     }
 
     override fun map(post: PostEntity): PostRepo {
-        return PostRepo(post.postId, post.userId, post.title, post.body, post.isFavorite, post.isRead)
+        return PostRepo(post.postId, post.userId, post.title, post.body, post.isFavorite, post.isRead, post.photoUrl)
     }
 }

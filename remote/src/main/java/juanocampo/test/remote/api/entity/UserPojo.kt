@@ -1,6 +1,6 @@
 package juanocampo.test.remote.api.entity
 
-class UserPojo(
+data class UserPojo(
     var id: String? = null,
     var name: String? = null,
     var username: String? = null,
@@ -11,14 +11,14 @@ class UserPojo(
     var company: Company? = null
 )
 
-class Address(
+data class Address(
     var street: String? = null,
     var suite: String? = null,
     var city: String? = null,
     var zipcode: String? = null
 )
 
-class Company(
+data class Company(
     var name: String? = null,
     var catchPhrase: String? = null,
     var bs: String? = null

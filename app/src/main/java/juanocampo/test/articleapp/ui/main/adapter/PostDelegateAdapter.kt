@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import juanocampo.test.articleapp.R
 import juanocampo.test.articleapp.delegate.DelegateAdapter
 import juanocampo.test.presentation.entity.PostViewType
@@ -37,6 +38,7 @@ class PostDelegateAdapter(
         private val title: TextView = itemView.findViewById(R.id.title)
         private val readDoc: View = itemView.findViewById(R.id.read_doc)
         private val starFavorite: ImageView = itemView.findViewById(R.id.star_favorite)
+        private val image: ImageView = itemView.findViewById(R.id.image)
 
 
         fun bind(post: PostViewType) {
@@ -44,7 +46,7 @@ class PostDelegateAdapter(
             starFavorite.setImageResource(if (post.isFavorite) R.drawable.ic_favorite_24px else R.drawable.ic_favorite_border_24px)
             starFavorite.visibility = View.VISIBLE
             readDoc.visibility = if (!post.isRead) View.VISIBLE else View.GONE
-
+            Picasso.get().load(post.photoUrl).into(image)
             starFavorite.setOnClickListener {
                 onPostFavorite(post)
             }

@@ -9,7 +9,7 @@ import juanocampo.test.domain.entity.User
 class MapperImp: Mapper {
 
     override fun map(post: PostRepo): Post {
-        return Post(post.postId, post.userId, post.title, post.body, post.isFavorite, post.isRead)
+        return Post(post.postId, post.userId, post.title, post.body, post.isFavorite, post.isRead, post.urlPhoto?: "")
     }
 
     override fun map(userRepo: UserRepo): User {

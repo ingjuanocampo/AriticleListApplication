@@ -6,4 +6,5 @@ class PostRepo(
     var title: String,
     var body: String,
     var isFavorite: Boolean = false,
-    var isRead:Boolean = true)
+    var isRead:Boolean = true,
+    var urlPhoto: String?)

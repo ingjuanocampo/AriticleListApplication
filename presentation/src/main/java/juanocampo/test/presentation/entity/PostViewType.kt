@@ -5,7 +5,8 @@ class PostViewType(val postId: String,
                    val title: String,
                    val body: String,
                    val isFavorite: Boolean,
-                   val isRead: Boolean): RecyclerViewType {
+                   val isRead: Boolean,
+                   val photoUrl: String): RecyclerViewType {
 
     override fun getDelegateId(): Int {
         return postId.hashCode()

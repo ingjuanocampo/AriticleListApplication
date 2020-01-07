@@ -11,4 +11,5 @@ data class PostEntity(
     var title: String,
     var body: String,
     var isFavorite: Boolean = false,
-    var isRead:Boolean = true)
+    var isRead:Boolean = true,
+    val photoUrl: String)
