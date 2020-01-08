@@ -3,8 +3,11 @@ package juanocampo.test.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
+import juanocampo.test.presentation.entity.PostViewType
 import juanocampo.test.presentation.entity.RecyclerViewType
 import juanocampo.test.presentation.mapper.Mapper
 import juanocampo.test.presentation.model.ArticleListModel
@@ -32,6 +35,33 @@ class ArticleListViewModel(private val model: ArticleListModel,
                 }, { errorLive.value = true })
         )
         return posListLiveData
+    }
+
+    fun sort(byName: Boolean) {
+        compositeDisposable.add(
+            Single.fromCallable { posListLiveData.value }
+                .map { list ->
+                    val mutableList = list.toMutableList()
+                    if (byName) {
+                        mutableList.sortByDescending {
+                            if (it is PostViewType) {
+                            it.title } else ""
+                        }
+                    } else {
+                        mutableList.sortByDescending {
+                            it.getDelegateId()
+                        }
+                    }
+                    return@map mutableList
+                }.subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe ({
+                    if (it != null) {
+                        posListLiveData.value = it
+                    }
+                }, { errorLive.value = true })
+        )
+
     }
 
     private fun getObservableList(favorite: Boolean) = model.observePostList(favorite)
