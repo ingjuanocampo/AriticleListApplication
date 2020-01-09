@@ -21,7 +21,7 @@ class ArticleListViewModel(private val model: ArticleListModel,
     private val posListLiveData = MutableLiveData<List<RecyclerViewType>>()
     private val deleteStatus = MutableLiveData<Boolean>()
     private val favoriteStatus = MutableLiveData<Boolean>()
-    private var togleSort = false
+    private var toggleSort = false
 
     val errorLive = MutableLiveData<Boolean>()
 
@@ -29,6 +29,7 @@ class ArticleListViewModel(private val model: ArticleListModel,
         compositeDisposable.add(
             getObservableList(isFavorite)
                 .map { list -> list.map { uiMapper.map(it) } }
+                .map { sortItems(it) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     if (it != null) {
@@ -39,9 +40,35 @@ class ArticleListViewModel(private val model: ArticleListModel,
         return posListLiveData
     }
 
+    fun sort() {
+        toggleSort = !toggleSort
+        compositeDisposable.add(
+            Single.fromCallable { posListLiveData.value }
+                .map { sortItems(it) }
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe ({
+                    if (it != null) {
+                        posListLiveData.value = emptyList()
+                        posListLiveData.value = it
+                    }
+                }, { errorLive.value = true })
+        )
+
+    }
+
+    private fun sortItems(list: List<RecyclerViewType>): List<RecyclerViewType> {
+        val mutableList = list.toMutableList()
+        if (toggleSort) {
+            mutableList.sortWith(nameComparator)
+        } else {
+            mutableList.sortWith(normalComparator)
+        }
+        return mutableList
+    }
+
     val nameComparator = Comparator { r1: RecyclerViewType?, r2: RecyclerViewType? ->
         if (r1 is PostViewType && r2 is PostViewType) {
-
             val title1 = r1.title ?: ""
             val title2 = r2.title ?: ""
             return@Comparator title1.compareTo(title2)
@@ -53,34 +80,9 @@ class ArticleListViewModel(private val model: ArticleListModel,
     }
 
     val normalComparator = Comparator { r1: RecyclerViewType?, r2: RecyclerViewType? ->
-            val id1 = r1?.getDelegateId() ?: 0
-            val id2 = r2?.getDelegateId() ?: 0
-            return@Comparator id1.compareTo(id2)
-    }
-
-
-    fun sort() {
-        togleSort = !togleSort
-        compositeDisposable.add(
-            Single.fromCallable { posListLiveData.value }
-                .map { list ->
-                    val mutableList = list.toMutableList()
-                    if (togleSort) {
-                        mutableList.sortWith(nameComparator)
-                    } else {
-                        mutableList.sortWith(normalComparator)
-                    }
-                    return@map mutableList
-                }.subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe ({
-                    if (it != null) {
-                        posListLiveData.value = emptyList()
-                        posListLiveData.value = it
-                    }
-                }, { errorLive.value = true })
-        )
-
+        val id1 = r1?.getDelegateId() ?: 0
+        val id2 = r2?.getDelegateId() ?: 0
+        return@Comparator id1.compareTo(id2)
     }
 
     private fun getObservableList(favorite: Boolean) = model.observePostList(favorite)
