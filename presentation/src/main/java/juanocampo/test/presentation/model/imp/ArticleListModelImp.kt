@@ -9,10 +9,16 @@ import juanocampo.test.domain.status.ProcessStatus
 import juanocampo.test.domain.usecase.DeleteByIdUseCase
 import juanocampo.test.domain.usecase.FavoriteUseCase
 import juanocampo.test.domain.usecase.GetListPostUseCase
+import juanocampo.test.presentation.entity.RecyclerViewType
 import juanocampo.test.presentation.model.ArticleListModel
-import java.lang.IllegalStateException
+import juanocampo.test.presentation.usecase.SorterUIArticleUseCase
 
-class ArticleListModelImp(private val getListPostUseCase: GetListPostUseCase, private val favoriteUseCase: FavoriteUseCase, private val deleteByIdUseCase: DeleteByIdUseCase): ArticleListModel {
+class ArticleListModelImp(
+    private val getListPostUseCase: GetListPostUseCase,
+    private val favoriteUseCase: FavoriteUseCase,
+    private val deleteByIdUseCase: DeleteByIdUseCase,
+    private val sorterArticleUseCase: SorterUIArticleUseCase
+) : ArticleListModel {
 
     override fun observePostList(isFavorite: Boolean): Observable<List<Post>> {
         return getListPostUseCase(isFavorite).subscribeOn(Schedulers.io())
@@ -25,19 +31,25 @@ class ArticleListModelImp(private val getListPostUseCase: GetListPostUseCase, pr
     }
 
     override fun setAsFavoriteById(id: String, favorite: Boolean): Completable {
-        return subscribeCompletableIO{
+        return subscribeCompletableIO {
             favoriteUseCase(id, favorite)
         }
     }
 
     private fun subscribeCompletableIO(function: () -> ProcessStatus): Completable {
-
         return Completable.fromCallable {
             val processStatus = function()
-            if  (processStatus is ProcessError) {
+            if (processStatus is ProcessError) {
                 throw IllegalStateException("Something when wrong")
             }
         }.subscribeOn(Schedulers.io())
+    }
+
+    override fun sortUIElement(
+        toggleSort: Boolean,
+        list: List<RecyclerViewType>
+    ): List<RecyclerViewType> {
+        return sorterArticleUseCase(toggleSort, list)
     }
 
 }
