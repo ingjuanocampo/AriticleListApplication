@@ -21,6 +21,8 @@ class ArticleListViewModel(private val model: ArticleListModel,
     private val posListLiveData = MutableLiveData<List<RecyclerViewType>>()
     private val deleteStatus = MutableLiveData<Boolean>()
     private val favoriteStatus = MutableLiveData<Boolean>()
+    private var togleSort = false
+
     val errorLive = MutableLiveData<Boolean>()
 
     fun observePostList(isFavorite: Boolean): LiveData<List<RecyclerViewType>> {
@@ -37,26 +39,43 @@ class ArticleListViewModel(private val model: ArticleListModel,
         return posListLiveData
     }
 
-    fun sort(byName: Boolean) {
+    val nameComparator = Comparator { r1: RecyclerViewType?, r2: RecyclerViewType? ->
+        if (r1 is PostViewType && r2 is PostViewType) {
+
+            val title1 = r1.title ?: ""
+            val title2 = r2.title ?: ""
+            return@Comparator title1.compareTo(title2)
+        } else {
+            val id1 = r1?.getDelegateId() ?: 0
+            val id2 = r2?.getDelegateId() ?: 0
+            return@Comparator id1.compareTo(id2)
+        }
+    }
+
+    val normalComparator = Comparator { r1: RecyclerViewType?, r2: RecyclerViewType? ->
+            val id1 = r1?.getDelegateId() ?: 0
+            val id2 = r2?.getDelegateId() ?: 0
+            return@Comparator id1.compareTo(id2)
+    }
+
+
+    fun sort() {
+        togleSort = !togleSort
         compositeDisposable.add(
             Single.fromCallable { posListLiveData.value }
                 .map { list ->
                     val mutableList = list.toMutableList()
-                    if (byName) {
-                        mutableList.sortByDescending {
-                            if (it is PostViewType) {
-                            it.title } else ""
-                        }
+                    if (togleSort) {
+                        mutableList.sortWith(nameComparator)
                     } else {
-                        mutableList.sortByDescending {
-                            it.getDelegateId()
-                        }
+                        mutableList.sortWith(normalComparator)
                     }
                     return@map mutableList
                 }.subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe ({
                     if (it != null) {
+                        posListLiveData.value = emptyList()
                         posListLiveData.value = it
                     }
                 }, { errorLive.value = true })

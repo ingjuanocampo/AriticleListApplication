@@ -24,11 +24,11 @@ open class BaseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemCount() = items.size
 
-    open fun addItems(updatedConversationMessages: List<RecyclerViewType>) {
-        val diffResult = DiffUtil.calculateDiff(DelegateDiffCallback(items, updatedConversationMessages))
+    open fun addItems(updatedItems: List<RecyclerViewType>) {
+        val diffResult = DiffUtil.calculateDiff(DelegateDiffCallback(items, updatedItems))
         items.clear()
-        if (updatedConversationMessages.isNullOrEmpty().not()) {
-            items.addAll(updatedConversationMessages)
+        if (updatedItems.isNullOrEmpty().not()) {
+            items.addAll(updatedItems)
         }
         diffResult.dispatchUpdatesTo(this)
     }

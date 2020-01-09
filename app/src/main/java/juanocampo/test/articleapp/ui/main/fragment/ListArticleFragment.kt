@@ -67,6 +67,11 @@ class ListArticleFragment : Fragment(), ItemTouchHelperAdapter {
             adapter.addItems(it)
         })
 
+        sort.setOnClickListener {
+            recyclerView.scrollToPosition(0)
+            viewModel.sort()
+        }
+
         val swipeAnimation = SimpleItemTouchHelperCallback(this)
         val mItemTouchHelper = ItemTouchHelper(swipeAnimation)
         mItemTouchHelper.attachToRecyclerView(recyclerView)
