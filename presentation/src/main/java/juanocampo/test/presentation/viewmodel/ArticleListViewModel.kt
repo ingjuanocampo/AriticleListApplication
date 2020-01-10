@@ -28,7 +28,7 @@ class ArticleListViewModel(private val model: ArticleListModel,
         compositeDisposable.add(
             getObservableList(isFavorite)
                 .map { list -> list.map { uiMapper.map(it) } }
-                .map { model.sortUIElement(toggleSort, it) }
+                .flatMapSingle { model.sortAndFilterItems("", toggleSort, it) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     if (it != null) {
@@ -43,7 +43,7 @@ class ArticleListViewModel(private val model: ArticleListModel,
         toggleSort = !toggleSort
         compositeDisposable.add(
             Single.fromCallable { posListLiveData.value }
-                .map { model.sortUIElement(toggleSort, it) }
+                .flatMap { model.sortAndFilterItems("", toggleSort, it) }
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe ({

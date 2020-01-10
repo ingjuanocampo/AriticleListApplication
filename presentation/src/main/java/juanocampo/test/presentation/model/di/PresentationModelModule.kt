@@ -9,13 +9,13 @@ import juanocampo.test.presentation.model.MainModel
 import juanocampo.test.presentation.model.imp.ArticleDetailModelImp
 import juanocampo.test.presentation.model.imp.ArticleListModelImp
 import juanocampo.test.presentation.model.imp.MainModuleImp
-import juanocampo.test.presentation.usecase.SorterUIArticleUseCase
+import juanocampo.test.presentation.usecase.SorterAndFilterUIArticleUseCase
 
 @Module
 class PresentationModelModule {
 
     @Provides
-    fun providesSorterArticleUseCase() = SorterUIArticleUseCase()
+    fun providesSorterArticleUseCase() = SorterAndFilterUIArticleUseCase()
 
     @Provides
     fun providesMainModel(
@@ -30,7 +30,7 @@ class PresentationModelModule {
         getListPostUseCase: GetListPostUseCase,
         favoriteUseCase: FavoriteUseCase,
         deleteByIdUseCase: DeleteByIdUseCase,
-        sorterArticleUseCase: SorterUIArticleUseCase
+        sorterArticleUseCase: SorterAndFilterUIArticleUseCase
     ):
             ArticleListModel = ArticleListModelImp(
         getListPostUseCase,

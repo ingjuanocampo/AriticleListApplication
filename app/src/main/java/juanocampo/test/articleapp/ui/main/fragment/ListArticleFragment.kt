@@ -27,17 +27,12 @@ import javax.inject.Inject
  */
 class ListArticleFragment : Fragment(), ItemTouchHelperAdapter {
 
-
     @Inject
     lateinit var viewmodelFactory: ArticleListViewModelFactory
 
     lateinit var viewModel: ArticleListViewModel
 
     private var adapter = PostAdapter({ onFavorite(it) }, { onSelected(it) })
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)

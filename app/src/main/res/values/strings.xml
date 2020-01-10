@@ -3,4 +3,5 @@
     <string name="tab_text_1">All</string>
     <string name="tab_text_2">Favorites</string>
     <string name="detail_title">Article Detail</string>
+    <string name="search_hint">Search</string>
 </resources>

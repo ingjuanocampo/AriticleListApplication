@@ -1,11 +1,23 @@
 package juanocampo.test.presentation.usecase
 
+import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import juanocampo.test.presentation.entity.PostViewType
 import juanocampo.test.presentation.entity.RecyclerViewType
 
-class SorterUIArticleUseCase {
+class SorterAndFilterUIArticleUseCase {
 
-    operator fun invoke(toggleSort: Boolean, list: List<RecyclerViewType>): List<RecyclerViewType> {
+    operator fun invoke(query: String, toggleSort: Boolean, list: List<RecyclerViewType>) : Single<List<RecyclerViewType>> {
+        return Single.fromCallable { sort(toggleSort, list) }.map { list ->
+            list.filter {
+                if (it is PostViewType) {
+                    it.title.contains(query)
+                } else false
+            }
+        }.observeOn(Schedulers.computation())
+    }
+
+    private fun sort(toggleSort: Boolean, list: List<RecyclerViewType>): List<RecyclerViewType> {
         val mutableList = list.toMutableList()
         if (toggleSort) {
             mutableList.sortWith(nameComparator)
