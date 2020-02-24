@@ -1,10 +1,10 @@
 package juanocampo.test.articleapp.ui.main.fragment
 
+import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -93,6 +93,31 @@ class ListArticleFragment : Fragment(), ItemTouchHelperAdapter {
 
     private fun onFavorite(postViewType: PostViewType) {
         viewModel.setAsFavorite(postViewType.postId, !postViewType.isFavorite)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        (menu.findItem(R.id.search).actionView as SearchView).apply {
+            setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
+            setOnQueryTextFocusChangeListener(object : SearchView.OnQueryTextListener,
+                View.OnFocusChangeListener {
+                override fun onFocusChange(v: View?, hasFocus: Boolean) {
+                }
+
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    newText?.let {
+                        viewModel.search(it)
+                    }
+                    return false
+                }
+            })
+        }
+
     }
 
 

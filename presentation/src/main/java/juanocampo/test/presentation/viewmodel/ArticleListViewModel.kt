@@ -21,6 +21,7 @@ class ArticleListViewModel(private val model: ArticleListModel,
     private val deleteStatus = MutableLiveData<Boolean>()
     private val favoriteStatus = MutableLiveData<Boolean>()
     private var toggleSort = false
+    private var query = ""
 
     val errorLive = MutableLiveData<Boolean>()
 
@@ -28,7 +29,7 @@ class ArticleListViewModel(private val model: ArticleListModel,
         compositeDisposable.add(
             getObservableList(isFavorite)
                 .map { list -> list.map { uiMapper.map(it) } }
-                .flatMapSingle { model.sortAndFilterItems("", toggleSort, it) }
+                .flatMapSingle { model.sortAndFilterItems(query, toggleSort, it) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     if (it != null) {
@@ -41,9 +42,19 @@ class ArticleListViewModel(private val model: ArticleListModel,
 
     fun sort() {
         toggleSort = !toggleSort
+        searchAndSort()
+
+    }
+
+    fun search(text: String) {
+        query = text
+        searchAndSort()
+    }
+
+    private fun searchAndSort() {
         compositeDisposable.add(
             Single.fromCallable { posListLiveData.value }
-                .flatMap { model.sortAndFilterItems("", toggleSort, it) }
+                .flatMap { model.sortAndFilterItems(query, toggleSort, it) }
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe ({
@@ -53,7 +64,6 @@ class ArticleListViewModel(private val model: ArticleListModel,
                     }
                 }, { errorLive.value = true })
         )
-
     }
 
     private fun getObservableList(favorite: Boolean) = model.observePostList(favorite)
