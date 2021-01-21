@@ -10,10 +10,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ingjuanocampo.cdapter.CompositeDelegateAdapter
 import dagger.android.support.AndroidSupportInjection
 import juanocampo.test.articleapp.R
 import juanocampo.test.articleapp.ui.detail.PostDetailScreen
-import juanocampo.test.articleapp.ui.main.adapter.PostAdapter
+import juanocampo.test.articleapp.ui.main.adapter.PostDelegateAdapter
 import juanocampo.test.articleapp.ui.main.adapter.swipe.ItemTouchHelperAdapter
 import juanocampo.test.articleapp.ui.main.adapter.swipe.SimpleItemTouchHelperCallback
 import juanocampo.test.presentation.entity.PostViewType
@@ -33,10 +34,11 @@ class ListArticleFragment : Fragment(), ItemTouchHelperAdapter {
 
     lateinit var viewModel: ArticleListViewModel
 
-    private var adapter = PostAdapter({ onFavorite(it) }, { onSelected(it) })
+    private var adapter = CompositeDelegateAdapter(1)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        adapter.appendDelegate(1) {parent ->  PostDelegateAdapter(parent, { onFavorite(it) }, { onSelected(it) }) }
     }
 
     override fun onAttach(context: Context) {
@@ -64,7 +66,11 @@ class ListArticleFragment : Fragment(), ItemTouchHelperAdapter {
 
         val isFavorite = arguments?.getBoolean(IS_FAVORITE) ?: false
         viewModel.observePostList(isFavorite).observe(this, Observer {
-            adapter.addItems(it)
+            if (it.isEmpty()) {
+                adapter.clearAll()
+            } else {
+                adapter.updateItems(it)
+            }
         })
 
         val swipeAnimation = SimpleItemTouchHelperCallback(this)

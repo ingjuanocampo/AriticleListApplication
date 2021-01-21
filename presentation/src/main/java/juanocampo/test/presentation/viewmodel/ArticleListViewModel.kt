@@ -3,9 +3,9 @@ package juanocampo.test.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ingjuanocampo.cdapter.RecyclerViewType
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import juanocampo.test.presentation.entity.RecyclerViewType
 import juanocampo.test.presentation.mapper.Mapper
 import juanocampo.test.presentation.model.ArticleListModel
 
