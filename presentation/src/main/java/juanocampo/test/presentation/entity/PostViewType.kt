@@ -1,5 +1,7 @@
 package juanocampo.test.presentation.entity
 
+import com.ingjuanocampo.cdapter.RecyclerViewType
+
 class PostViewType(val postId: String,
                    val userId: String,
                    val title: String,

@@ -70,6 +70,10 @@ dependencies {
     //RX
     implementation "io.reactivex.rxjava2:rxjava:${rxJavaVersion}"
 
+    // CD Adapter
+    implementation 'com.ingjuanocampo:cda:1.0.2'
+
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
