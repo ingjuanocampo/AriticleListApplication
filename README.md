@@ -71,6 +71,7 @@ alt="Drawing" style="width: 5px;"/>
 ## Languages, libraries and tools used
 
 * [Kotlin](https://kotlinlang.org/)
+* [CompositeDelegateAdapter](https://github.com/ingjuanocampo/CompositeDelegateAdapter/blob/main/README.md)
 * [AndroidX](https://developer.android.com/jetpack/androidx)
 * [RXKotlin](https://github.com/ReactiveX/RxKotlin)
 * [Dagger 2](https://github.com/google/dagger)
